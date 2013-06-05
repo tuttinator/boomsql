@@ -9,4 +9,3 @@ if [ ! -e /home/ubuntu/freetds/lib ]; then
   make
   make install
 fi
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/ubuntu/freetds/lib
