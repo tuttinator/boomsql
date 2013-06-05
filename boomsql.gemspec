@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'yard'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rake', '~> 0.9.2'
+  spec.add_development_dependency 'gemfury'
   spec.add_dependency 'methadone', '~> 1.3.0'
   spec.add_dependency 'tiny_tds'
 end

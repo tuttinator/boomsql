@@ -1,61 +1,35 @@
-def dump_load_path
-  puts $LOAD_PATH.join("\n")
-  found = nil
-  $LOAD_PATH.each do |path|
-    if File.exists?(File.join(path,"rspec"))
-      puts "Found rspec in #{path}"
-      if File.exists?(File.join(path,"rspec","core"))
-        puts "Found core"
-        if File.exists?(File.join(path,"rspec","core","rake_task"))
-          puts "Found rake_task"
-          found = path
-        else
-          puts "!! no rake_task"
-        end
-      else
-        puts "!!! no core"
-      end
+require 'bundler/gem_tasks'
+
+# Use Gemfury release tasks instead of Bundler's
+require 'gemfury'
+require 'gemfury/command'
+
+namespace 'fury' do
+  desc "Build gem and push it to Gemfury"
+  task :release, :gemspec do |t, args|
+    gemspec = args[:gemspec] ||
+              FileList["#{Dir.pwd}/*.gemspec"][0]
+
+    if gemspec.nil? || !File.exist?(gemspec)
+      puts "No gemspec found"
+    else
+      puts "Building #{File.basename(gemspec)}"
+      spec = Gem::Specification.load(gemspec)
+      Gem::Builder.new(spec).build
+      gemfile = File.basename(spec.cache_file)
+      Gemfury::Command::App.start(['push', gemfile])
     end
   end
-  if found.nil?
-    puts "Didn't find rspec/core/rake_task anywhere"
-  else
-    puts "Found in #{path}"
-  end
 end
-require 'bundler'
-require 'rake/clean'
 
-require 'rake/testtask'
-
-require 'cucumber'
-require 'cucumber/rake/task'
-gem 'rdoc' # we need the installed RDoc gem, not the system one
-require 'rdoc/task'
-
-include Rake::DSL
-
-Bundler::GemHelper.install_tasks
-
-
-Rake::TestTask.new do |t|
-  t.pattern = 'test/tc_*.rb'
+namespace 'gemfury' do
+  task :release => 'fury:release'
 end
 
 
-CUKE_RESULTS = 'results.html'
-CLEAN << CUKE_RESULTS
-Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = "features --format html -o #{CUKE_RESULTS} --format pretty --no-source -x"
-  t.fork = false
-end
+require 'rspec/core/rake_task'
 
-Rake::RDocTask.new do |rd|
-  
-  rd.main = "README.rdoc"
-  
-  rd.rdoc_files.include("README.rdoc","lib/**/*.rb","bin/**/*")
-end
+RSpec::Core::RakeTask.new
 
-task :default => [:test,:features]
-
+task :default => :spec
+task :test => :spec
