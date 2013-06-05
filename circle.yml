@@ -1,9 +1,3 @@
 dependencies:
   pre:
-    - wget ftp://ftp.freetds.org/pub/freetds/stable/freetds-stable.tgz
-    - mkdir -p /home/ubuntu/freetds
-    - tar xvzf freetds-stable.tgz
-    - cd freetds-0.91; ./configure --prefix /home/ubuntu/freetds
-    - cd freetds-0.91; make; 
-    - cd freetds-0.91; make install
-    - export LD_LIBRARY_PATH = $LD_LIBRARY_PATH:/home/ubuntu/freetds/lib
+    - bash ci/free_tds.sh
