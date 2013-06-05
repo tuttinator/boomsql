@@ -6,3 +6,4 @@ dependencies:
     - cd freetds-0.91; ./configure --prefix /home/ubuntu/freetds
     - cd freetds-0.91; make; 
     - cd freetds-0.91; make install
+    - export LD_LIBRARY_PATH = $LD_LIBRARY_PATH:/home/ubuntu/freetds/lib
