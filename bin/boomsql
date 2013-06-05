@@ -8,17 +8,27 @@ class App
   include Methadone::Main
   include Methadone::CLILogging
 
-  main do # Add args you want: |like,so|
+  main do |filename|
     # your program code here
     # You can access CLI options via
     # the options Hash
+    if options[:format]
+      format = options[:format].to_sym
+    else
+      format = :yaml
+    end
+
+    sql_executor = Boomsql::Executor.new(filename: filename, format: format, options[:tiny_tds])
+
+    puts sql_executor.process!
+
   end
 
   # supplemental methods here
 
   # Declare command-line interface here
 
-  # description "one line description of your app"
+  description "CLI interface to take a SQL query and execute it on a remote Azure MSSQL server"
   #
   # Accept flags via:
   # on("--flag VAL","Some flag")
@@ -30,10 +40,13 @@ class App
   # Or, just call OptionParser methods on opts
   #
   # Require an argument
-  # arg :some_arg 
+  arg :filename
   #
   # # Make an argument optional
   # arg :optional_arg, :optional
+
+  # defaults_from_config_file '.boomsql.yml'
+
 
   version Boomsql::VERSION
 
