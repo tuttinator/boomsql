@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    boomsql (0.0.1.beta1)
+    boomsql (0.0.1.beta2)
       methadone (~> 1.3.0)
       net-sftp
       net-ssh
