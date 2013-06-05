@@ -13,6 +13,9 @@ class App
     # the CLI prefers YAML    
     options[:format] ||= :yaml
 
+    # let's add the filename into this options hash
+    options[:filename] = filename if filename
+
     sql_executor = Boomsql::Executor.new(options)
 
     puts sql_executor.process!

@@ -2,14 +2,12 @@ module Boomsql
   
   class DatabaseProxy
 
-    attr_reader :ssh_credentials, :initialization_error
+    attr_reader :ssh_credentials
 
-    def initialize(ssh_credentials, error = nil)
-      @initialization_error = error
-      
+    def initialize(ssh_credentials)
       # TODO: Test if these credentials work, and raise an error if they don't
-      @ssh_credentials = [  ssh_credentials[:username], 
-                            ssh_credentials[:host] ]
+      @ssh_credentials = [  ssh_credentials[:host],
+                            ssh_credentials[:username] ]
 
       @ssh_credentials << { port:  ssh_credentials[:port] }  unless ssh_credentials[:port].nil?
     end
@@ -24,7 +22,7 @@ module Boomsql
       filename = "/home/boom/boomsql/#{sql[:md5_hash]}.sql"
       Net::SFTP.start(*@ssh_credentials) do |sftp|
         # Check to see if file exists
-        sftp.stat! filename do |response|
+        sftp.stat filename do |response|
           # if the sql has been run before, don't bother to upload it again
           unless response.ok?
             # upload the file
@@ -45,12 +43,13 @@ module Boomsql
     end
 
     def execute_remote_query(sql_file)
+      result = nil
       Net::SSH.start(*@ssh_credentials) do |ssh|
         # Result will be serialized to YAML in output
         result = ssh.exec!("boomsql #{sql_file}")
       end
       # Deserialize into a Ruby object
-      YAML::load result
+      YAML::load result unless result.nil?
     end
 
 

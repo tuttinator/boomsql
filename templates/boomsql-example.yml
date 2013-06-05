@@ -1,10 +1,11 @@
-:tiny_tds:
-  :username: ENV['MSSQL_USERNAME']
-  :password: ENV['MSSQL_PASSWORD']
-  :host:     ENV['MSSQL_HOST']
-  :database: ENV['MSSQL_DATABASE']
-  :azure: true
-:ssh:
-  :username:  ENV['SSH_USERNAME']
-  :host:      ENV['SSH_HOST']
-  :port:      ENV['SSH_PORT']
+:boomsql_config:
+  :tiny_tds:
+    :username: ENV['MSSQL_USERNAME']
+    :password: ENV['MSSQL_PASSWORD']
+    :host:     ENV['MSSQL_HOST']
+    :database: ENV['MSSQL_DATABASE']
+    :azure: true
+  :ssh:
+    :username:  ENV['SSH_USERNAME']
+    :host:      ENV['SSH_HOST']
+    :port:      ENV['SSH_PORT']

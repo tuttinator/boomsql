@@ -5,7 +5,7 @@ describe Boomsql::Executor do
   context "using only ssh credentials" do
 
     before :each do
-      options = { ssh_credentials: { username: "test", host: "example@transcribeme.com", port: 22 } }
+      options = YAML::load(File.read "./spec/fixtures/boomsql.yml")
       @executor = Boomsql::Executor.new(options)
     end
 

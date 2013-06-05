@@ -1,0 +1,11 @@
+:boomsql_config:
+  :ssh:
+    :username: boom
+    :host: boom.cloudapp.net
+    :port: 56835
+  :tiny_tds:
+    :username: 'readonly_user@an_instance'
+    :password: PASSWORD
+    :host: an_instance.database.windows.net
+    :database: transcribeme
+    :azure: true
