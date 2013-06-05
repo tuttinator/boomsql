@@ -3,6 +3,6 @@ dependencies:
     - wget ftp://ftp.freetds.org/pub/freetds/stable/freetds-stable.tgz
     - mkdir -p /home/ubuntu/freetds
     - tar xvzf freetds-stable.tgz
-    - cd freetds-0.91; ./configure
-    - cd freetds-0.91; make --prefix /home/ubuntu/freetds; 
+    - cd freetds-0.91; ./configure --prefix /home/ubuntu/freetds
+    - cd freetds-0.91; make; 
     - cd freetds-0.91; make install
