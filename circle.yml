@@ -1,4 +1,4 @@
 dependencies:
   pre:
     - bash ci/free_tds.sh
-    - bundle config build.tiny_tds --with-freetds-include=/home/ubuntu/freetds
+    - bundle config build.tiny_tds --with-freetds-dir=/home/ubuntu/freetds
