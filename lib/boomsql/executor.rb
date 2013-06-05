@@ -3,12 +3,12 @@ module Boomsql
   class Executor
 
     attr_accessor :filename, :query
-    attr_reader   :last_query
+    attr_reader   :last_query, :client
 
     def initialize(options = {}, query = nil)
       @client = get_client(options[:tiny_tds], options[:ssh_credentials])
       # sanitize the format option into
-      @format = options[:format].downcase.to_sym if options[:format].present?
+      @format = options[:format].downcase.to_sym unless options[:format].nil?
       @filename = options[:filename]
       @query = query
     end

@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-View the config/boomsql-example.yml and copy to $HOME/.boomsql.yml for defaults
+View the templates/boomsql-example.yml and copy it to $HOME/.boomsql.yml for configuration
 
 TODO: Write further usage instructions here
 

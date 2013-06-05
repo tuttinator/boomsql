@@ -6,10 +6,12 @@ module Boomsql
 
     def initialize(ssh_credentials, error = nil)
       @initialization_error = error
+      
       # TODO: Test if these credentials work, and raise an error if they don't
       @ssh_credentials = [  ssh_credentials[:username], 
-                            ssh_credentials[:host], 
-                           { port:  ssh_credentials[:port] } ]
+                            ssh_credentials[:host] ]
+
+      @ssh_credentials << { port:  ssh_credentials[:port] }  unless ssh_credentials[:port].nil?
     end
 
     def execute(sql)
@@ -31,6 +33,7 @@ module Boomsql
               f.puts sql[:query]
             end
           end
+        end
       end
       filename
     end
