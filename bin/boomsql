@@ -40,7 +40,7 @@ class App
   # # Make an argument optional
   # arg :optional_arg, :optional
 
-  # defaults_from_config_file '.boomsql.yml'
+  defaults_from_config_file '.boomsql.yml'
 
 
   version Boomsql::VERSION

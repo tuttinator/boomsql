@@ -2,19 +2,32 @@ require 'spec_helper'
 
 describe Boomsql::Executor do
   
-  it "initialises with an ssh_credentials key in the options has" do
+  context "using only ssh credentials" do
 
+    before :each do
+      options = { ssh_credentials: { username: "test", host: "example@transcribeme.com", port: 22 } }
+      @executor = Boomsql::Executor.new(options)
+    end
 
-    options = { ssh_credentials: { username: "test", host: "example@transcribeme.com", port: 22 } }
-    expect(Boomsql::Executor.new(options)).to be
-    # or not to be? That is the question.
-    # Whether 'tis Nobler in the mind to suffer
-    # The Slings and Arrows of outrageous Fortune,
-    # Or to take Arms against a Sea of troubles,
-    # And by opposing end them
+    it "initialises correctly" do
 
-    # I'm sorry. I had to.
+      expect(@executor).to be
+      # or not to be? That is the question.
+      # Whether 'tis Nobler in the mind to suffer
+      # The Slings and Arrows of outrageous Fortune,
+      # Or to take Arms against a Sea of troubles,
+      # And by opposing end them
+
+      # I'm sorry. I had to.
+
+    end
+
+    it "uses the DatabaseProxy without a valid direct database connection" do
+      expect(@executor.client.class).to be(Boomsql::DatabaseProxy)
+    end
 
   end
+
+
 
 end
