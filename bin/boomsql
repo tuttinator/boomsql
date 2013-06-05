@@ -13,7 +13,7 @@ class App
     # the CLI prefers YAML    
     options[:format] ||= :yaml
 
-    sql_executor = Boomsql::Executor.new(options, {filename: filename, format: format})
+    sql_executor = Boomsql::Executor.new(options)
 
     puts sql_executor.process!
 

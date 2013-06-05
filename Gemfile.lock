@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    boomsql (0.0.1.alpha3)
+    boomsql (0.0.1.beta1)
       methadone (~> 1.3.0)
       tiny_tds
 
