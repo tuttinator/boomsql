@@ -4,3 +4,7 @@
   :host:     ENV['MSSQL_HOST']
   :database: ENV['MSSQL_DATABASE']
   :azure: true
+:ssh:
+  :username:  ENV['SSH_USERNAME']
+  :host:      ENV['SSH_HOST']
+  :port:      ENV['SSH_PORT']

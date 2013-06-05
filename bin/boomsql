@@ -9,16 +9,11 @@ class App
   include Methadone::CLILogging
 
   main do |filename|
-    # your program code here
-    # You can access CLI options via
-    # the options Hash
-    if options[:format]
-      format = options[:format].to_sym
-    else
-      format = :yaml
-    end
 
-    sql_executor = Boomsql::Executor.new(filename: filename, format: format, options[:tiny_tds])
+    # the CLI prefers YAML    
+    options[:format] ||= :yaml
+
+    sql_executor = Boomsql::Executor.new(options, {filename: filename, format: format})
 
     puts sql_executor.process!
 

@@ -11,8 +11,9 @@ module Boomsql
     attr_accessor :filename, :query
     attr_reader   :last_query
 
-    def initialize(credentials, options = {}, query = nil)
-      @client = TinyTds::Client.new(credentials)
+    def initialize(options = {}, query = nil)
+      sql_credentials, ssh_credentials = options[:tiny_tds], options[:ssh_credentials]
+      @client = TinyTds::Client.new(credentials[:tiny_tds])
       # sanitize the format option into
       @format = options[:format].downcase.to_sym if options[:format].present?
       @filename = options[:filename]
@@ -32,6 +33,15 @@ module Boomsql
     end
 
     private
+
+    def get_client(sql_credentials, ssh_credentials)
+      begin
+        TinyTds::Client.new(sql_credentials)
+      rescue Exception => e
+        DatabaseProxy.new(ssh_credentials, e)
+      end
+
+    end
 
     def execute_query!
       @query ||= File.read(@filename)
