@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["caleb@prettymint.co.nz"]
   spec.description   = %q{CLI app that uses the TinyTDS interface to the TranscribeMe MSSQL database on Windows Azure, using only SQL readonly queries for development purposes}
   spec.summary       = %q{CLI app to execute SQL readonly queries on the TranscribeMe MSSQL database}
-  spec.homepage      = ""
+  spec.homepage      = "http://boom.transcribeme.com"
   spec.license       = "Copyright Caleb Tutty"
 
   spec.files         = `git ls-files`.split($/)
