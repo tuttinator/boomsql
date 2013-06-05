@@ -3,4 +3,7 @@ dependencies:
     - wget ftp://ftp.freetds.org/pub/freetds/stable/freetds-stable.tgz
     - tar xvzf freetds-stable.tgz
     - cd freetds-0.91
-    - make
+    - pwd
+    - ./configure
+    - make 
+    - make install
