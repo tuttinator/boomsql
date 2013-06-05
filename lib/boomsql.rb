@@ -12,8 +12,7 @@ module Boomsql
     attr_reader   :last_query
 
     def initialize(options = {}, query = nil)
-      sql_credentials, ssh_credentials = options[:tiny_tds], options[:ssh_credentials]
-      @client = TinyTds::Client.new(credentials[:tiny_tds])
+      @client = get_client(options[:tiny_tds], options[:ssh_credentials])
       # sanitize the format option into
       @format = options[:format].downcase.to_sym if options[:format].present?
       @filename = options[:filename]
