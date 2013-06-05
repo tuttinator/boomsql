@@ -20,7 +20,7 @@ module Boomsql
 
     def upload_file_contents(sql)
       filename = "/home/boom/boomsql/#{sql[:md5_hash]}.sql"
-      Net::SFTP.start(*@ssh_credentials)) do |sftp|
+      Net::SFTP.start(*@ssh_credentials) do |sftp|
         # Check to see if file exists
         sftp.stat! filename do |response|
           # if the sql has been run before, don't bother to upload it again
