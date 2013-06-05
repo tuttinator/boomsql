@@ -3,6 +3,8 @@ PATH
   specs:
     boomsql (0.0.1.beta1)
       methadone (~> 1.3.0)
+      net-sftp
+      net-ssh
       tiny_tds
 
 GEM
@@ -26,6 +28,9 @@ GEM
     method_source (0.8.1)
     multi_json (1.7.5)
     multipart-post (1.2.0)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.6.7)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)

@@ -1,8 +1,3 @@
-require 'digest'
-require 'net/sftp'
-require 'net/ssh'
-require 'yaml'
-
 module Boomsql
   
   class DatabaseProxy
