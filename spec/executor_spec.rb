@@ -26,6 +26,10 @@ describe Boomsql::Executor do
       expect(@executor.client.class).to be(Boomsql::DatabaseProxy)
     end
 
+    it "has a filename, but no query" do
+      pending
+    end
+
   end
 
 

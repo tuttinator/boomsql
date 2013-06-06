@@ -2,8 +2,8 @@ module Boomsql
   
   class Executor
 
-    attr_accessor :filename, :query
-    attr_reader   :last_query, :client
+    attr_accessor :filename, :query, :format
+    attr_reader   :last_query, :last_result, :client
 
     def initialize(options = {}, query = nil)
       @client = get_client(options[:boomsql_config])
@@ -11,6 +11,15 @@ module Boomsql
       @format = options[:format].downcase.to_sym unless options[:format].nil?
       @filename = options[:filename]
       @query = query
+    end
+
+    def extract_query_from_file!
+      if @filename
+        # TODO: should we lint the SQL?
+        @query = File.read(get_file_path)
+      else
+        false
+      end
     end
 
     def process!
@@ -42,13 +51,14 @@ module Boomsql
     end
 
     def execute_query!
-
       @query ||= File.read(get_file_path)
       result = @client.execute query
       @last_query = @query
-      @query = nil
 
+      @query = nil
       rows = []
+      # TODO: Implement logging!
+      # debug(result)
       # FreeTDS lazily executes when #each is called
       result.each {|r| rows << r}
     end
@@ -64,9 +74,14 @@ module Boomsql
 
     def search_paths_for(file_path)
       return file_path if file_path.exist?
-      ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+
+      paths = ENV['PATH'].split(File::PATH_SEPARATOR)
+      # Also include whatever the current path is
+      paths << `pwd`.chomp
+      paths.each do |path|
         @filename = Pathname.new("#{path}#{Pathname::SEPARATOR_LIST}#{file_path}")
         break if @filename.exist?
+        @filename = nil
       end
       @filename
     end

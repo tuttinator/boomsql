@@ -2,6 +2,9 @@ module Boomsql
   
   class DatabaseProxy
 
+    # TODO: Check if the credentials sign in to SSH okay (in a valid? method)
+    # TODO: Check that the boomsql binary is available on the remote machine (in a bootstrap method)
+
     attr_reader :ssh_credentials
 
     def initialize(ssh_credentials)
@@ -46,9 +49,10 @@ module Boomsql
       result = nil
       Net::SSH.start(*@ssh_credentials) do |ssh|
         # Result will be serialized to YAML in output
-        result = ssh.exec!("boomsql #{sql_file}")
+        result = ssh.exec!("sourcervm use 2.0.0@global; boomsql #{sql_file}")
       end
       # Deserialize into a Ruby object
+      # result
       YAML::load result unless result.nil?
     end
 
