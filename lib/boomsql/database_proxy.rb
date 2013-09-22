@@ -49,11 +49,11 @@ module Boomsql
       result = nil
       Net::SSH.start(*@ssh_credentials) do |ssh|
         # Result will be serialized to YAML in output
-        result = ssh.exec!("sourcervm use 2.0.0@global; boomsql #{sql_file}")
+        # TODO: make this generic
+        # result = ssh.exec!("source ~/.rvm/scripts/rvm; rvm use 2.0.0@global; boomsql #{sql_file}").sub("Using /home/boom/.rvm/gems/ruby-2.0.0-p195 with gemset global\n", "")
       end
       # Deserialize into a Ruby object
-      # result
-      YAML::load result unless result.nil?
+      YAML::load result
     end
 
 
